@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl/>
+        <http_method>GET</http_method>
+        <name>list task by priority</name>
+        <operation_script><![CDATA[
+(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+
+    var priority = request.pathParams.priority;
+	var returnValue = [];
+	var userID = gs.getUserID();
+	var gr = new GlideRecord('x_snc_donenow_gtd_task');
+	gr.addActiveQuery();
+	gr.addQuery('opened_by', userID);
+	gr.addQuery('priority', priority);
+	gr.query();
+	
+	while (gr.next() ){
+		var task = {
+			"number": gr.number.toString(),
+			"short_description":gr.short_description.toString(),
+			"priority":gr.priority.toString(),
+		};
+		if (gr.waiting_on != '') {
+			task.waiting_on = {"sys_id": gr.waiting_on + '',
+ 					 "name": gr.waiting_on.getDisplayValue() + '' ,
+					 "email": gr.waiting_on.email + ''
+							  }		;	
+		}
+		returnValue.push(task);		
+	}
+	return returnValue;
+	
+	
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_snc_donenow/gtd/listTask/{priority}</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/listTask/{priority}</relative_path>
+        <request_example/>
+        <requires_acl_authorization>false</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2015-12-14 18:23:40</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>d5a632ca0f58d2009339ab78b1050eb8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>list task by priority</sys_name>
+        <sys_package display_value="DoneNow" source="x_snc_donenow">9122b60a0f58d2009339ab78b1050eac</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="DoneNow">9122b60a0f58d2009339ab78b1050eac</sys_scope>
+        <sys_update_name>sys_ws_operation_d5a632ca0f58d2009339ab78b1050eb8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2015-12-14 18:23:40</sys_updated_on>
+        <web_service_definition display_value="gtd">1195b68a0f58d2009339ab78b1050e3c</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>

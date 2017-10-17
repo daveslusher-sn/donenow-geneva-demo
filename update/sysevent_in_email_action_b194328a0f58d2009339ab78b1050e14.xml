@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sysevent_in_email_action">
+    <sysevent_in_email_action action="INSERT_OR_UPDATE">
+        <action>record_action</action>
+        <active>true</active>
+        <assignment_operator/>
+        <condition_script>(new GTDEmail()).getGTDUser(email.recipients) != null</condition_script>
+        <description/>
+        <event_name>email.read</event_name>
+        <filter_condition/>
+        <from/>
+        <name>Forwarded GTD Tasks</name>
+        <order>99</order>
+        <reply_email/>
+        <required_roles>x_snc_donenow_gtd_task_user</required_roles>
+        <script><![CDATA[var user = (new GTDEmail()).getGTDUser(email.recipients);
+
+current.assigned_to = user;
+current.opened_by = user;
+
+current.insert();]]></script>
+        <stop_processing>true</stop_processing>
+        <sys_class_name>sysevent_in_email_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2015-12-14 18:16:03</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>b194328a0f58d2009339ab78b1050e14</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>Forwarded GTD Tasks</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="DoneNow" source="x_snc_donenow">9122b60a0f58d2009339ab78b1050eac</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="DoneNow">9122b60a0f58d2009339ab78b1050eac</sys_scope>
+        <sys_update_name>sysevent_in_email_action_b194328a0f58d2009339ab78b1050e14</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2016-04-03 03:16:07</sys_updated_on>
+        <table>x_snc_donenow_gtd_task</table>
+        <template>descriptionDYNAMIC367bf121ef3221002841f7f775c0fbe2^short_descriptionDYNAMICb637bd21ef3221002841f7f775c0fbb6^active=true^EQ</template>
+        <type/>
+    </sysevent_in_email_action>
+</record_update>

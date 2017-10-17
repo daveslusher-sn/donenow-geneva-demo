@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="task" label="GTD Task" max_length="40" name="x_snc_donenow_gtd_task" sizeclass="8" type="collection">
+        <element label="Waiting for" max_length="32" name="waiting_for" reference="sys_user" type="reference"/>
+    </element>
+</database>
